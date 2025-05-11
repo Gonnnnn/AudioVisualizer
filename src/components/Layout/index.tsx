@@ -1,13 +1,12 @@
 import React from 'react';
 import Controls from '../Controls';
 import Visualizer from '../Visualizer';
-import './styles.css';
 
 const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   return (
-    <div className="layout">
-      <div className="content">
+    <div className="w-full h-screen relative overflow-hidden">
+      <div className="w-full h-full">
         <Visualizer />
         <Controls />
       </div>

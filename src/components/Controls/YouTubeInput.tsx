@@ -24,20 +24,20 @@ const YouTubeInput: React.FC = () => {
   };
 
   return (
-    <div className="youtube-input-container">
-      <form onSubmit={handleSubmit} className="youtube-form">
+    <div className="flex items-center">
+      <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="text"
           value={youtubeUrl}
           onChange={(e) => setYoutubeUrl(e.target.value)}
           placeholder="YouTube URL (Coming Soon)"
           disabled={true} // Disabled until implementation is complete
-          className="youtube-input"
+          className="p-2.5 rounded-lg border border-cyan-400 bg-purple-950/80 text-white w-[180px] placeholder:text-gray-400 disabled:bg-gray-700/50 disabled:cursor-not-allowed"
         />
         <button 
           type="submit" 
           disabled={!youtubeUrl.trim() || isLoading || true} // Disabled until implementation is complete
-          className="youtube-submit-btn"
+          className="bg-cyan-400 text-purple-950 border-none py-2.5 px-4 rounded-lg cursor-pointer font-bold transition-all duration-300 shadow-[0_0_5px_#00FFFF,0_0_10px_#00FFFF] hover:bg-cyan-500 hover:shadow-[0_0_8px_#00FFFF,0_0_15px_#00FFFF,0_0_20px_#00FFFF] disabled:bg-gray-700/50 disabled:shadow-none disabled:cursor-not-allowed"
         >
           {isLoading ? 'Loading...' : 'Load'}
         </button>

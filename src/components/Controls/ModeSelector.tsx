@@ -17,18 +17,18 @@ const ModeSelector: React.FC = () => {
   };
 
   return (
-    <div className="mode-selector">
-      <label htmlFor="modeSelector" className="mode-label">
+    <div className="flex items-center gap-2">
+      <label htmlFor="modeSelector" className="text-white font-medium">
         Mode:
       </label>
       <select
         id="modeSelector"
         value={visualizerState.currentMode}
         onChange={handleModeChange}
-        className="mode-select"
+        className="bg-purple-950/80 text-white border border-cyan-400 rounded-lg py-2 px-3 cursor-pointer focus:outline-none focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500 appearance-none"
       >
         {availableModes.map((mode) => (
-          <option key={mode} value={mode}>
+          <option key={mode} value={mode} className="bg-purple-950 text-white">
             {formatModeName(mode)}
           </option>
         ))}

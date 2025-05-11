@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useVisualizer } from '../../contexts/VisualizerContext';
 import { useAudio } from '../../contexts/AudioContext';
-import './styles.css';
 
 const Visualizer: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -45,7 +44,7 @@ const Visualizer: React.FC = () => {
     };
   }, [updateVisualizer, getFrequencyData]);
 
-  return <canvas ref={canvasRef} id="visualizerCanvas" />;
+  return <canvas ref={canvasRef} id="visualizerCanvas" className="fixed top-0 left-0 w-full h-full z-[1]" />;
 };
 
 export default Visualizer;

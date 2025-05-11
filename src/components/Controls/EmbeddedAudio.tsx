@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAudio } from '../../contexts/AudioContext';
-import './styles.css';
 
 const embeddedTracks = [
   {
@@ -40,15 +39,15 @@ const EmbeddedAudio: React.FC = () => {
   };
 
   return (
-    <div className="embedded-audio-container">
+    <div className="flex items-center">
       <select 
-        className="embedded-audio-select"
+        className="bg-purple-950/80 text-white border border-cyan-400 rounded-lg py-2 px-3 cursor-pointer focus:outline-none focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500 appearance-none w-60"
         onChange={(e) => handleTrackSelect(e.target.value)}
         defaultValue=""
       >
-        <option value="" disabled>Select Embedded Track</option>
+        <option value="" disabled className="bg-purple-950 text-white">Select Embedded Track</option>
         {embeddedTracks.map((track) => (
-          <option key={track.path} value={track.path}>
+          <option key={track.path} value={track.path} className="bg-purple-950 text-white">
             {track.name}
           </option>
         ))}

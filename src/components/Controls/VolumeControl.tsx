@@ -31,8 +31,8 @@ const VolumeControl: React.FC = () => {
   };
 
   return (
-    <div className="volume-control">
-      <label htmlFor="volumeControl" className="volume-label">
+    <div className="flex items-center gap-2">
+      <label htmlFor="volumeControl" className="text-white font-medium">
         Volume:
       </label>
       <input
@@ -44,7 +44,7 @@ const VolumeControl: React.FC = () => {
         value={volumeValue}
         onChange={handleVolumeChange}
         disabled={!audioState.audioContext}
-        className="volume-slider"
+        className="accent-cyan-400 h-2 rounded-lg appearance-none bg-purple-950 cursor-pointer w-24 disabled:opacity-50 disabled:cursor-not-allowed"
       />
     </div>
   );
