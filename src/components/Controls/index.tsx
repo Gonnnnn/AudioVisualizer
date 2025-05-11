@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import FileInput from './FileInput';
 import PlaybackControls from './PlaybackControls';
 import VolumeControl from './VolumeControl';
 import ThemeSelector from './ThemeSelector';
 import ModeSelector from './ModeSelector';
-import EmbeddedAudio from './EmbeddedAudio';
+import AudioSourceSelector from './AudioSourceSelector';
 
 const Controls: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -25,19 +24,14 @@ const Controls: React.FC = () => {
       
       <div className={`w-full transition-all duration-300 ${isExpanded ? 'max-h-[1000px] opacity-100 pointer-events-auto' : 'max-h-0 opacity-0 pointer-events-none'}`}>
         {/* Container with padding around all content */}
-        <div className="p-6 md:p-8">
-          {/* Top row - audio input sources */}
-          <div className="flex justify-between items-center gap-6 mb-6">
-            <div className="w-full px-4">
-              <EmbeddedAudio />
-            </div>
-            <div className="w-full px-4">
-              <FileInput />
-            </div>
+        <div className="p-6 md:p-8 flex flex-col gap-6">
+          {/* Audio source selector */}
+          <div className="mb-6">
+            <AudioSourceSelector />
           </div>
 
           {/* Middle row - playback controls and volume */}
-          <div className="flex justify-between items-center gap-6 mb-6">
+          <div className="flex justify-between items-center gap-6">
             <div className="w-full px-4">
               <PlaybackControls />
             </div>

@@ -9,7 +9,7 @@ const PlaybackControls: React.FC = () => {
   const isPlaying = audioState.isPlaying;
 
   // Common button styles
-  const baseButtonStyle = "text-purple-950 border-none py-2.5 px-5 rounded-lg cursor-pointer font-bold transition-all duration-300 disabled:bg-gray-700/50 disabled:shadow-none disabled:cursor-not-allowed";
+  const baseButtonStyle = "text-purple-950 border-none py-2.5 px-5 rounded-lg cursor-pointer font-bold transition-all duration-300 disabled:bg-gray-700/70 disabled:text-white/70 disabled:shadow-[0_0_2px_rgba(255,255,255,0.3)] disabled:cursor-not-allowed";
   const playButtonStyle = `bg-cyan-400 w-[80px] ${baseButtonStyle} shadow-[0_0_5px_#00FFFF,0_0_10px_#00FFFF] hover:bg-cyan-500 hover:shadow-[0_0_8px_#00FFFF,0_0_15px_#00FFFF,0_0_20px_#00FFFF]`;
   const stopButtonStyle = `bg-fuchsia-500 w-[80px] ${baseButtonStyle} shadow-[0_0_5px_#FF00FF,0_0_10px_#FF00FF] hover:bg-fuchsia-600 hover:shadow-[0_0_8px_#FF00FF,0_0_15px_#FF00FF,0_0_20px_#FF00FF]`;
 
