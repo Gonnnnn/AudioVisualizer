@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import FileInput from './FileInput';
 import EmbeddedAudio from './EmbeddedAudio';
+import YouTubeInput from './YouTubeInput';
 import { useAudio } from '../../contexts/AudioContext';
 
 enum AudioSourceMode {
   EMBEDDED = 'embedded',
-  FILE = 'file'
+  FILE = 'file',
+  YOUTUBE = 'youtube'
 }
 
 const AudioSourceSelector: React.FC = () => {
@@ -49,6 +51,20 @@ const AudioSourceSelector: React.FC = () => {
     setShowConfirm(false);
   };
 
+  // Render the appropriate input component based on the source mode
+  const renderAudioInput = () => {
+    switch (sourceMode) {
+      case AudioSourceMode.EMBEDDED:
+        return <EmbeddedAudio />;
+      case AudioSourceMode.FILE:
+        return <FileInput />;
+      case AudioSourceMode.YOUTUBE:
+        return <YouTubeInput />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex flex-col w-full gap-4">
       <div className="flex rounded-lg overflow-hidden shadow-[0_0_3px_#00FFFF]">
@@ -56,13 +72,13 @@ const AudioSourceSelector: React.FC = () => {
           className={`${buttonBaseClasses} ${sourceMode === AudioSourceMode.EMBEDDED ? activeButtonClasses : inactiveButtonClasses} rounded-l-lg`}
           onClick={() => handleModeChangeRequest(AudioSourceMode.EMBEDDED)}
         >
-          Embedded Tracks
+          Embedded
         </button>
         <button 
-          className={`${buttonBaseClasses} ${sourceMode === AudioSourceMode.FILE ? activeButtonClasses : inactiveButtonClasses} rounded-r-lg`}
+          className={`${buttonBaseClasses} ${sourceMode === AudioSourceMode.FILE ? activeButtonClasses : inactiveButtonClasses}`}
           onClick={() => handleModeChangeRequest(AudioSourceMode.FILE)}
         >
-          Upload File
+          Upload
         </button>
       </div>
       
@@ -89,7 +105,7 @@ const AudioSourceSelector: React.FC = () => {
       )}
       
       <div className="mt-2">
-        {sourceMode === AudioSourceMode.EMBEDDED ? <EmbeddedAudio /> : <FileInput />}
+        {renderAudioInput()}
       </div>
     </div>
   );
