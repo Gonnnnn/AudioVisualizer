@@ -8,6 +8,11 @@ const PlaybackControls: React.FC = () => {
   const isEnabled = audioState.audioContext !== null && audioState.sourceType !== null;
   const isPlaying = audioState.isPlaying;
 
+  // Common button styles
+  const baseButtonStyle = "text-purple-950 border-none py-2.5 px-5 rounded-lg cursor-pointer font-bold transition-all duration-300 disabled:bg-gray-700/50 disabled:shadow-none disabled:cursor-not-allowed";
+  const playButtonStyle = `bg-cyan-400 w-[80px] ${baseButtonStyle} shadow-[0_0_5px_#00FFFF,0_0_10px_#00FFFF] hover:bg-cyan-500 hover:shadow-[0_0_8px_#00FFFF,0_0_15px_#00FFFF,0_0_20px_#00FFFF]`;
+  const stopButtonStyle = `bg-fuchsia-500 w-[80px] ${baseButtonStyle} shadow-[0_0_5px_#FF00FF,0_0_10px_#FF00FF] hover:bg-fuchsia-600 hover:shadow-[0_0_8px_#FF00FF,0_0_15px_#FF00FF,0_0_20px_#FF00FF]`;
+
   const handlePlayPause = () => {
     if (isPlaying) {
       pauseAudio();
@@ -17,11 +22,11 @@ const PlaybackControls: React.FC = () => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-4">
       <button 
         onClick={handlePlayPause}
         disabled={!isEnabled}
-        className="bg-cyan-400 text-purple-950 border-none py-2.5 px-4 rounded-lg cursor-pointer font-bold transition-all duration-300 shadow-[0_0_5px_#00FFFF,0_0_10px_#00FFFF] hover:bg-cyan-500 hover:shadow-[0_0_8px_#00FFFF,0_0_15px_#00FFFF,0_0_20px_#00FFFF] disabled:bg-gray-700/50 disabled:shadow-none disabled:cursor-not-allowed"
+        className={playButtonStyle}
         aria-label={isPlaying ? 'Pause' : 'Play'}
       >
         {isPlaying ? 'Pause' : 'Play'}
@@ -30,7 +35,7 @@ const PlaybackControls: React.FC = () => {
       <button 
         onClick={stopAudio}
         disabled={!isEnabled || !isPlaying}
-        className="bg-fuchsia-500 text-purple-950 border-none py-2.5 px-4 rounded-lg cursor-pointer font-bold transition-all duration-300 shadow-[0_0_5px_#FF00FF,0_0_10px_#FF00FF] hover:bg-fuchsia-600 hover:shadow-[0_0_8px_#FF00FF,0_0_15px_#FF00FF,0_0_20px_#FF00FF] disabled:bg-gray-700/50 disabled:shadow-none disabled:cursor-not-allowed"
+        className={stopButtonStyle}
         aria-label="Stop"
       >
         Stop
