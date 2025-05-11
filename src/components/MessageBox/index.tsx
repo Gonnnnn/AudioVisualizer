@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { type IMessageOptions } from '../../types';
 import './styles.css';
+
+export interface MessageBoxHandle {
+  showMessage: (msg: string, opts?: IMessageOptions) => void;
+}
 
 interface MessageBoxProps {
   message?: string;
@@ -8,11 +12,11 @@ interface MessageBoxProps {
   autoClose?: boolean;
 }
 
-const MessageBox: React.FC<MessageBoxProps> = ({ 
+const MessageBox = forwardRef<MessageBoxHandle, MessageBoxProps>(({ 
   message = '', 
   options = { type: 'info', duration: 3000 }, 
   autoClose = true 
-}) => {
+}, ref) => {
   const [visible, setVisible] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(message);
   const [messageType, setMessageType] = useState(options.type || 'info');
@@ -38,12 +42,9 @@ const MessageBox: React.FC<MessageBoxProps> = ({
   }, [message, options, showMessage]);
 
   // Expose method to parent components
-  React.useImperativeHandle<{ showMessage: (msg: string, opts?: IMessageOptions) => void }>(
-    React.createRef(),
-    () => ({
-      showMessage
-    })
-  );
+  useImperativeHandle(ref, () => ({
+    showMessage
+  }));
 
   if (!visible) return null;
 
@@ -61,6 +62,8 @@ const MessageBox: React.FC<MessageBoxProps> = ({
       )}
     </div>
   );
-};
+});
+
+MessageBox.displayName = 'MessageBox';
 
 export default MessageBox;

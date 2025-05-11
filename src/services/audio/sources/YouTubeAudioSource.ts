@@ -38,6 +38,15 @@ export class YouTubeAudioSource implements IAudioSource {
     this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     this.audioBuffer = this.audioContext.createBuffer(2, this.audioContext.sampleRate * 2, this.audioContext.sampleRate);
     
+    // Set up audio nodes
+    this.analyserNode = this.audioContext.createAnalyser();
+    this.gainNode = this.audioContext.createGain();
+    this.gainNode.gain.value = this.currentVolume;
+    
+    // Connect nodes
+    this.gainNode.connect(this.analyserNode);
+    this.analyserNode.connect(this.audioContext.destination);
+    
     return this.audioBuffer;
   }
 
@@ -47,18 +56,45 @@ export class YouTubeAudioSource implements IAudioSource {
       return;
     }
 
-    console.warn("YouTube playback not implemented yet.");
+    // Create and set up source node
+    this.sourceNode = this.audioContext.createBufferSource();
+    this.sourceNode.buffer = this.audioBuffer;
+    
+    // Connect source to gain node
+    if (this.gainNode) {
+      this.sourceNode.connect(this.gainNode);
+    }
+    
+    // Set up ended callback
+    if (this.onEndedCallback) {
+      this.sourceNode.onended = () => {
+        this.isAudioPlaying = false;
+        this.onEndedCallback?.();
+      };
+    }
+    
+    this.sourceNode.start();
+    this.isAudioPlaying = true;
   }
 
   pause(): void {
-    if (this.isAudioPlaying) {
+    if (this.sourceNode && this.isAudioPlaying) {
+      this.sourceNode.stop();
+      this.sourceNode.disconnect();
+      this.sourceNode = null;
       this.isAudioPlaying = false;
     }
   }
 
   stop(): void {
-    if (this.isAudioPlaying) {
+    if (this.sourceNode) {
+      this.sourceNode.stop();
+      this.sourceNode.disconnect();
+      this.sourceNode = null;
       this.isAudioPlaying = false;
+      
+      // Call the ended callback when explicitly stopped
+      this.onEndedCallback?.();
     }
   }
 
@@ -68,6 +104,13 @@ export class YouTubeAudioSource implements IAudioSource {
 
   onEnded(callback: () => void): void {
     this.onEndedCallback = callback;
+    // If there's an active source node, attach the callback
+    if (this.sourceNode) {
+      this.sourceNode.onended = () => {
+        this.isAudioPlaying = false;
+        callback();
+      };
+    }
   }
 
   getAnalyserNode(): AnalyserNode | null {
@@ -79,9 +122,9 @@ export class YouTubeAudioSource implements IAudioSource {
   }
 
   setVolume(volume: number): void {
-    this.currentVolume = volume;
+    this.currentVolume = Math.max(0, Math.min(1, volume));
     if (this.gainNode) {
-      this.gainNode.gain.value = volume;
+      this.gainNode.gain.value = this.currentVolume;
     }
   }
 
@@ -96,12 +139,5 @@ export class YouTubeAudioSource implements IAudioSource {
     const match = url.match(regExp);
     
     return (match && match[7].length === 11) ? match[7] : null;
-  }
-
-  /**
-   * Future implementation will connect to YouTube iframe API
-   */
-  private setupYouTubePlayer(): void {
-    // TO DO: Implement YouTube iframe API integration
   }
 }

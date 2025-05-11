@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { type IVisualizer, type IVisualizerBar, type IVisualizerTheme } from '../../../types';
 import { VISUALIZER_CONFIG, DEFAULT_BACKGROUND_COLOR } from '../../../config';
 
@@ -24,7 +24,6 @@ class CircularBar implements IVisualizerBar {
  * Circular visualizer implementation
  */
 export class CircularVisualizer implements IVisualizer {
-  private canvas: HTMLCanvasElement;
   private renderer: THREE.WebGLRenderer;
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
@@ -33,8 +32,6 @@ export class CircularVisualizer implements IVisualizer {
   private theme: IVisualizerTheme | null = null;
 
   constructor(canvas: HTMLCanvasElement) {
-    this.canvas = canvas;
-    
     // Initialize renderer
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);

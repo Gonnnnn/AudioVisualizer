@@ -14,7 +14,7 @@ class BaseTheme implements IVisualizerTheme {
     this.colors = colors;
   }
 
-  getColorForIndex(index: number, total: number): Color {
+  getColorForIndex(index: number, _: number): Color {
     return this.colors[index % this.colors.length];
   }
 
@@ -71,11 +71,11 @@ export class MonoTheme implements IVisualizerTheme {
     this.color = color;
   }
 
-  getColorForIndex(index: number, total: number): Color {
+  getColorForIndex(_: number, __: number): Color {
     return this.color;
   }
 
-  applyToBar(bar: IVisualizerBar, index: number, total: number): void {
+  applyToBar(bar: IVisualizerBar, _: number, __: number): void {
     if (bar.mesh.material) {
       if (Array.isArray(bar.mesh.material)) {
         bar.mesh.material.forEach(mat => {

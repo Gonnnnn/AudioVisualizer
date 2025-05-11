@@ -31,7 +31,6 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const [fileSource, setFileSource] = useState<FileAudioSource | null>(null);
   const [youtubeSource, setYoutubeSource] = useState<YouTubeAudioSource | null>(null);
   const [animationFrame, setAnimationFrame] = useState<number | null>(null);
-  const [analyzerData, setAnalyzerData] = useState<Uint8Array | null>(null);
 
   // Clean up on unmount
   useEffect(() => {
