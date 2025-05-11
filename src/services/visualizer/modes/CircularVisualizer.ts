@@ -57,7 +57,7 @@ export class CircularVisualizer implements IVisualizer {
 
   init(): void {
     // Add lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     this.scene.add(ambientLight);
     
     const spotLight = new THREE.SpotLight(0xffffff, 1);
@@ -72,10 +72,10 @@ export class CircularVisualizer implements IVisualizer {
     // Create floor plane
     const planeGeometry = new THREE.PlaneGeometry(50, 50);
     const planeMaterial = new THREE.MeshStandardMaterial({
-      color: 0x111111,
+      color: 0x000000,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.5
+      opacity: 0
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = -Math.PI / 2;

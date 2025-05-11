@@ -71,4 +71,4 @@ export const AVAILABLE_THEMES = {
 /**
  * Default background color
  */
-export const DEFAULT_BACKGROUND_COLOR = 0x110011; // Dark purple
+export const DEFAULT_BACKGROUND_COLOR = 0x000000;
