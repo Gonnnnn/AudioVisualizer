@@ -26,6 +26,7 @@ const ModeSelector: React.FC = () => {
         value={visualizerState.currentMode}
         onChange={handleModeChange}
         className="bg-purple-950/80 text-white border border-cyan-400 rounded-lg py-2.5 px-4 w-full cursor-pointer focus:outline-none focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500 appearance-none shadow-[0_0_5px_#FF00FF,0_0_10px_#FF00FF]"
+        style={{ textIndent: '0.5rem' }}
       >
         {availableModes.map((mode) => (
           <option key={mode} value={mode} className="bg-purple-950 text-white p-2">
