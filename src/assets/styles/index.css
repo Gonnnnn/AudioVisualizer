@@ -1,0 +1,43 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #110011; /* Dark purple background */
+    color: #fff;
+    overflow: hidden; /* Prevent scrollbars from page layout */
+  }
+  
+  /* Custom scrollbar for better aesthetics */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #110011;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #00FFFF;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00AAAA;
+  }
+  
+  /* Focus styles for accessibility */
+  :focus {
+    outline: 2px solid #FF00FF;
+    outline-offset: 2px;
+  }
+  
+  /* Button reset */
+  button {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Reset */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }

@@ -1,16 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import { AudioProvider } from './contexts/AudioContext';
+import { VisualizerProvider } from './contexts/VisualizerContext';
+import Layout from './components/Layout';
+import MessageBox from './components/MessageBox';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [isInitializing, setIsInitializing] = useState(true);
+
+  useEffect(() => {
+    // Simulate initialization process
+    const timer = setTimeout(() => {
+      setIsInitializing(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-      <div>
-        App
-      </div>
-  )
-}
+    <AudioProvider>
+      <VisualizerProvider>
+        <Layout>
+          {isInitializing && <MessageBox message="Loading 3D Neon Audio Visualizer..." />}
+        </Layout>
+      </VisualizerProvider>
+    </AudioProvider>
+  );
+};
 
-export default App
+export default App;
