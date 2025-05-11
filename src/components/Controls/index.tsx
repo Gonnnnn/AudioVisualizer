@@ -4,9 +4,11 @@ import VolumeControl from './VolumeControl';
 import ThemeSelector from './ThemeSelector';
 import ModeSelector from './ModeSelector';
 import AudioSourceSelector from './AudioSourceSelector';
+import { useAudio } from '../../contexts/AudioContext';
 
 const Controls: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const { audioState } = useAudio();
 
   // Extract long class strings into variables for better readability
   const containerClasses = "fixed bottom-5 left-1/2 -translate-x-1/2 z-10 bg-black/40 rounded-xl shadow-lg shadow-cyan-400/20 flex flex-col transition-all duration-300";
@@ -25,6 +27,14 @@ const Controls: React.FC = () => {
       <div className={`w-full transition-all duration-300 ${isExpanded ? 'max-h-[1000px] opacity-100 pointer-events-auto' : 'max-h-0 opacity-0 pointer-events-none'}`}>
         {/* Container with padding around all content */}
         <div className="p-6 md:p-8 flex flex-col gap-6">
+          {/* Current Audio Display */}
+          {audioState.fileName && (
+            <div className="w-full text-center mb-2">
+              <div className="text-fuchsia-400 text-sm font-medium">Currently Playing:</div>
+              <div className="text-white text-base truncate">{audioState.fileName}</div>
+            </div>
+          )}
+          
           {/* Audio source selector */}
           <div className="mb-6">
             <AudioSourceSelector />
