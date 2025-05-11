@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, type ReactNode, useRef, useCallback } from 'react';
 import { 
     ThemeType,
     VisualizerMode,
@@ -44,17 +44,19 @@ export const VisualizerProvider: React.FC<VisualizerProviderProps> = ({ children
     };
   }, []);
 
-  // Initialize visualizer when canvas is available
-  const initializeVisualizer = (canvas: HTMLCanvasElement) => {
+  // Initialize visualizer. Pass a canvas element to draw the visualizer on.
+  const initializeVisualizer = useCallback((canvas: HTMLCanvasElement) => {
     if (activeVisualizerRef.current) {
       activeVisualizerRef.current.destroy();
     }
     
-    // Create visualizer based on mode
-    if (visualizerState.currentMode === VisualizerMode.GRID) {
-      activeVisualizerRef.current = new GridVisualizer(canvas);
-    } else if (visualizerState.currentMode === VisualizerMode.CIRCULAR) {
-      activeVisualizerRef.current = new CircularVisualizer(canvas);
+    switch (visualizerState.currentMode) {
+      case VisualizerMode.GRID:
+        activeVisualizerRef.current = new GridVisualizer(canvas);
+        break;
+      case VisualizerMode.CIRCULAR:
+        activeVisualizerRef.current = new CircularVisualizer(canvas);
+        break;
     }
     
     if (activeVisualizerRef.current) {
@@ -83,7 +85,7 @@ export const VisualizerProvider: React.FC<VisualizerProviderProps> = ({ children
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  };
+  }, [visualizerState.currentMode, visualizerState.canvas]);
 
   /**
    * Set visualizer mode

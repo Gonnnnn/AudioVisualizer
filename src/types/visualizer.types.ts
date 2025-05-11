@@ -21,10 +21,16 @@ export interface IVisualizerTheme {
  * Interface for visualizer modes
  */
 export interface IVisualizer {
+  // Initialize the visualizer. Call it before using the visualizer.
   init(): void;
+  // Update the visualizer. It will draw based on the frequency data.
   update(frequencyData: Uint8Array | null): void;
+  // Resize the visualizer. You might want to use it when the window is resized.
   resize(width: number, height: number): void;
+  // Set the theme of the visualizer. It will change the color.
   setTheme(theme: IVisualizerTheme): void;
+  // Destroy the visualizer. Call it when the component is unmounted.
+  // It cleans up the resources.
   destroy(): void;
 }
 
