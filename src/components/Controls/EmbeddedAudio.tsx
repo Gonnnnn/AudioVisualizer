@@ -4,7 +4,7 @@ import { useAudio } from '../../contexts/AudioContext';
 const embeddedTracks = [
   {
     name: 'Everyday Problems (Example 1)',
-    path: './audio/everyday-problems.mp3'
+    path: './audio/everyday-problem.mp3'
   }
   // Add more tracks here as needed
 ];
